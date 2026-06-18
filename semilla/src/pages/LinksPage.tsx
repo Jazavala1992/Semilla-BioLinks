@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./LinksPage.css";
 import Insta from "../../public/Instagram.png"
-import fondoImg from "../../public/fonso-semilla.png";
+import fondo from "../../public/fondo.png";
 import Youtube from "../../public/Youtube.png";
 import TikTok from "../../public/TikTok.webp";
 import Gmail from "../../public/Gmail.webp";
@@ -215,7 +215,7 @@ export default function LinksPage() {
     <div className="page">
       {/* Fondo decorativo */}
       <div className="page__bg" aria-hidden="true">
-        <img src={fondoImg} alt="" className="page__bg-img" /> {/* 👈 agrega esto */}
+        <img src={fondo} alt="" className="page__bg-img" /> {/* 👈 agrega esto */}
       </div>
 
       <main className="container">

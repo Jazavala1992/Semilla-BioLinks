@@ -315,3 +315,49 @@
 @media (prefers-reduced-motion: reduce) {
   .link-card { transition: none; }
 }
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+
+/* 1. Teléfonos pequeños (ajuste de márgenes y avatar) */
+@media (max-width: 480px) {
+  .container {
+    padding: 40px 15px;
+  }
+  
+  .profile__avatar-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .profile__name {
+    font-size: 1.5rem;
+  }
+}
+
+/* 2. Tablets y pantallas medianas (optimización de espacio) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 500px; /* Un poco más estrecho para estilo "Linktree" */
+    padding: 80px 40px;
+  }
+
+  .container::before {
+    inset: 60px 0; /* Más margen respecto al borde superior/inferior */
+  }
+
+  .link-card {
+    padding: 18px 30px;
+    font-size: 0.9rem; /* Ligeramente más grande para mejor lectura */
+  }
+}
+
+/* 3. Pantallas grandes (evitar que el contenido se vea pequeño) */
+@media (min-width: 1024px) {
+  .profile__name {
+    font-size: 2.25rem;
+  }
+  
+  .profile__bio {
+    max-width: 350px; /* La bio puede expandirse un poco más */
+  }
+}
