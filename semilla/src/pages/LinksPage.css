@@ -45,7 +45,7 @@
 
 /* ── Página — fondo de imagen ─────────────────────────────────────────────── */
 .page {
-  min-height: 100vh;
+  min-height: 100svh;
   background-color: #1a1008;
   color: var(--color-text);
   font-family: var(--font-body);
@@ -54,7 +54,7 @@
 }
 
 .page__bg {
-  position: absolute;   /* 👈 se mueve con el scroll */
+  position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
@@ -65,7 +65,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   display: block;
 }
 
@@ -73,7 +73,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(125, 125, 125, 0.45);
+  background: rgba(125, 125, 125, 0.38);
 }
 
 /* ── Contenedor centrado ──────────────────────────────────────────────────── */
@@ -100,7 +100,7 @@
   content: "";
   position: absolute;
   inset: 40px 0;
-  background: rgba(100, 107, 48, 0.25);
+  background: rgba(100, 107, 48, 0.22);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
@@ -120,15 +120,15 @@
 
 /* Avatar sobresale por encima de la tarjeta */
 .profile__avatar-wrapper {
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   border-radius: var(--radius-avatar);
   overflow: hidden;
   border: 3px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   background: #fff;
-  margin-top: -40px;    /* sube el avatar sobre el borde de la tarjeta */
-  margin-bottom: 20px;
+  margin-top: -45px;    /* sube el avatar sobre el borde de la tarjeta */
+  margin-bottom: -10px;
   flex-shrink: 0;
 }
 
@@ -151,23 +151,7 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
-.profile__username {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  margin-bottom: 10px;
-  letter-spacing: 0.03em;
-}
 
-.profile__bio {
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
-  line-height: 1.5;
-  max-width: 280px;
-
-  /* Línea punteada debajo de la bio, como la referencia */
-  padding-bottom: 18px;
-  border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
-}
 
 /* ── Secciones ────────────────────────────────────────────────────────────── */
 .sections {
@@ -178,10 +162,56 @@
   width: 100%;
 }
 
+.links-group {
+  gap: 18px;
+}
+
+.links-group__title {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
 /* Ocultar los títulos de sección en este estilo minimalista */
 /* (quítalos si prefieres mostrarlos) */
 .link-section__title {
   display: none;
+}
+
+.sections--routes {
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.route-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+}
+
+.route-section__title {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.route-section__description {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.45;
 }
 
 .link-section__cards {
@@ -227,6 +257,23 @@
 
 .link-card--clicked {
   transform: scale(0.97);
+}
+
+.link-card--route {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.link-card__icon--route {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-card__route-text {
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Acento sutil de color en el borde según categoría */
@@ -293,6 +340,9 @@
 
   .container::before {
     inset: 30px 0;
+    background: rgba(100, 107, 48, 0.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .sections,
@@ -324,6 +374,15 @@
     padding: 40px 15px;
   }
   
+  .page__bg-img {
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  .page__bg::after {
+    background: rgba(125, 125, 125, 0.28);
+  }
+
   .profile__avatar-wrapper {
     width: 120px;
     height: 120px;
@@ -331,6 +390,14 @@
   
   .profile__name {
     font-size: 1.5rem;
+  }
+
+  .links-group__title {
+    font-size: 1.25rem;
+  }
+
+  .route-section__title {
+    font-size: 1.2rem;
   }
 }
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./LinksPage.css";
 import Insta from "../../public/Instagram.png"
 import fondo from "../../public/fondo.png";
@@ -8,6 +9,7 @@ import Gmail from "../../public/Gmail.webp";
 import WhatsApp from "../../public/WhatsApp.png";
 import Ubication from "../../public/Ubicacion.png";
 import Facebook from "../../public/Facebook.webp";
+import productos from "../../public/productos.png";
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────────
 
@@ -24,9 +26,9 @@ interface LinkItem {
 }
 
 interface Profile {
-  name: string;
+  name?: string;
   username: string;
-  bio: string;
+  bio?: string;
   avatar: string;
 }
 
@@ -40,14 +42,20 @@ interface CategoryMeta {
   icon: string;
 }
 
+interface RouteSection {
+  title: string;
+  to: string;
+  buttonLabel: string;
+  icon: string;
+  iconType?: "emoji" | "image";
+}
+
 // ─── Datos de configuración ────────────────────────────────────────────────────
 // Edita este objeto para personalizar tu página de enlaces
 
 const CONFIG: PageConfig = {
   profile: {
-    name: "Semilla",
-    username: "@tuusuario",
-    bio: "Diseñador / Desarrollador / Creador de contenido 🚀",
+    username: "@Andi&Jose",
     avatar: "./1.png",
   },
 
@@ -65,7 +73,7 @@ const CONFIG: PageConfig = {
       id: 2,
       category: "social",
       label: "Instagram",
-      url: "https://instagram.com/tuusuario",
+      url: "https://www.instagram.com/semilla_baking/",
       icon: Insta,
       iconType: "image",
     },
@@ -91,19 +99,19 @@ const CONFIG: PageConfig = {
       id: 5,
       category: "contact",
       label: "Correo electrónico",
-      url: "mailto:tuemail@correo.com",
+      url: "mailto:semillabackery@gmail.com",
       icon: Gmail,
       iconType: "image",
-      username: "tuemail@correo.com",
+      username: "semillabackery@gmail.com",
     },
     {
       id: 6,
       category: "contact",
       label: "WhatsApp",
-      url: "https://wa.me/591XXXXXXXX",
+      url: "https://wa.me/59178864698",
       icon: WhatsApp,
       iconType: "image",
-      username: "+591 XXX-XXXXX",
+      username: "+591 78864698",
     },
     // Ubicación
     {
@@ -198,6 +206,22 @@ function LinkSection({ category, links }: LinkSectionProps) {
 
 const CATEGORIES: LinkCategory[] = ["social", "contact", "project", "location"];
 
+const ROUTE_SECTIONS: RouteSection[] = [
+  {
+    title: "Catálogo",
+    to: "/catalogo",
+    buttonLabel: "Abrir catálogo",
+    icon: productos,
+    iconType: "image",
+  },
+  {
+    title: "Promociones",
+    to: "/promociones",
+    buttonLabel: "Ver promociones",
+    icon: "🎁",
+  },
+];
+
 type GroupedLinks = Record<LinkCategory, LinkItem[]>;
 
 export default function LinksPage() {
@@ -215,7 +239,7 @@ export default function LinksPage() {
     <div className="page">
       {/* Fondo decorativo */}
       <div className="page__bg" aria-hidden="true">
-        <img src={fondo} alt="" className="page__bg-img" /> {/* 👈 agrega esto */}
+        <img src={fondo} alt="" className="page__bg-img" /> 
       </div>
 
       <main className="container">
@@ -228,14 +252,32 @@ export default function LinksPage() {
               className="profile__avatar"
             />
           </div>
-
           <h1 className="profile__name">{profile.name}</h1>
           <p className="profile__username">{profile.username}</p>
           <p className="profile__bio">{profile.bio}</p>
         </header>
 
+        {/* Secciones de navegación */}
+        <div className="sections sections--routes">
+          {ROUTE_SECTIONS.map((section) => (
+            <section key={section.to} className="route-section">
+              <h2 className="route-section__title"> {section.title}</h2>
+              <Link to={section.to} className="link-card link-card--route">
+                <span className="link-card__icon link-card__icon--route" aria-hidden="true">
+                  {section.iconType === "image"
+                    ? <img src={section.icon} alt="" className="link-card__icon-img" />
+                    : section.icon
+                  }
+                </span>
+                <span className="link-card__route-text">{section.buttonLabel}</span>
+              </Link>
+            </section>
+          ))}
+        </div>
+
         {/* Secciones de enlaces */}
-        <div className="sections">
+        <div className="sections links-group">
+          <h2 className="links-group__title">Nuestras redes</h2>
           {CATEGORIES.map((cat) => (
             <LinkSection
               key={cat}
