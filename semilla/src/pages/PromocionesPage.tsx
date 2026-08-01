@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import fondo from "../../public/fondo.png";
-import loycardFront from "../../public/Loycardfront.png";
-import loycardBack from "../../public/Loycardback.png";
+import loycardFront from "../../public/Tarjeta-Semilla.png";
+import loycardBack from "../../public/Tarjeta-Semilla-2.png";
 import SocialFooter from "../components/SocialFooter";
 import "./PromocionesPage.css";
 
@@ -16,6 +16,11 @@ export default function PromocionesPage() {
 
       <main className="promo-page__content">
         <header className="promo-page__header">
+          <Link to="/" className="promo-page__home-link" aria-label="Volver a home">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 3.2 3 10.6v9.2c0 .6.4 1 1 1h5.5c.6 0 1-.4 1-1V16c0-.6.4-1 1-1h1c.6 0 1 .4 1 1v3.8c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.2L12 3.2Zm0 2.1 7 5.7v8.2h-3.5V16c0-1.7-1.3-3-3-3h-1c-1.7 0-3 1.3-3 3v3.2H5V11l7-5.7Z" />
+            </svg>
+          </Link>
           <p className="promo-page__eyebrow">Promociones</p>
           <h1 className="promo-page__title">Loyalty Card</h1>
         </header>
@@ -113,10 +118,6 @@ export default function PromocionesPage() {
         </a>
 
         <SocialFooter/>
-
-        <Link to="/" className="promo-page__back">
-          Volver a home
-        </Link>
       </main>
     </div>
   );

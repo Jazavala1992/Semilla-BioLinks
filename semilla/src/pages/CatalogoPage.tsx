@@ -32,7 +32,13 @@ const CATALOG_ITEMS: CatalogItem[] = [
     name: "Producto 3",
     image: producto3,
     description: "Añade la información que ayude a vender mejor: porciones, medidas, disponibilidad o recomendación de consumo.",
+  },{
+    id: 4,
+    name: "Producto 4",
+    image: producto3,
+    description: "Añade la información que ayude a vender mejor: porciones, medidas, disponibilidad o recomendación de consumo.",
   },
+
 ];
 
 

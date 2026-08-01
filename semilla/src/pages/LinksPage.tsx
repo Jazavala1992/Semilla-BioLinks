@@ -10,6 +10,7 @@ import WhatsApp from "../../public/WhatsApp.png";
 import Ubication from "../../public/Ubicacion.png";
 import Facebook from "../../public/Facebook.webp";
 import productos from "../../public/productos.png";
+import UbicacionesModal from "../components/UbucionesModal";
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────────
 
@@ -89,7 +90,7 @@ const CONFIG: PageConfig = {
       id: 4,
       category: "social",
       label: "TikTok",
-      url: "https://tiktok.com/@tuusuario",
+      url: "https://www.tiktok.com/@semilla_baking",
       icon : TikTok,
       iconType: "image",
     },
@@ -130,12 +131,17 @@ const CONFIG: PageConfig = {
 
 interface LinkCardProps {
   link: LinkItem;
+  onActivate?: () => void;
 }
 
-function LinkCard({ link }: LinkCardProps) {
+function LinkCard({ link, onActivate }: LinkCardProps) {
   const [clicked, setClicked] = useState<boolean>(false);
 
-  const handleClick = (): void => {
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+    if (onActivate) {
+      event.preventDefault();
+      onActivate();
+    }
     setClicked(true);
     setTimeout(() => setClicked(false), 300);
   };
@@ -178,9 +184,10 @@ const CATEGORY_META: Record<LinkCategory, CategoryMeta> = {
 interface LinkSectionProps {
   category: LinkCategory;
   links: LinkItem[];
+  onActivateLocation?: () => void;
 }
 
-function LinkSection({ category, links }: LinkSectionProps) {
+function LinkSection({ category, links, onActivateLocation }: LinkSectionProps) {
   const meta = CATEGORY_META[category];
   if (!links.length) return null;
 
@@ -195,7 +202,11 @@ function LinkSection({ category, links }: LinkSectionProps) {
 
       <div className="link-section__cards">
         {links.map((link) => (
-          <LinkCard key={link.id} link={link} />
+          <LinkCard
+            key={link.id}
+            link={link}
+            onActivate={category === "location" ? onActivateLocation : undefined}
+          />
         ))}
       </div>
     </section>
@@ -222,10 +233,29 @@ const ROUTE_SECTIONS: RouteSection[] = [
   },
 ];
 
+const UBICACIONES = [
+  {
+    name: "UTA Café",
+    address: "Calle 10 de achumani esq. Av. Alexander. Paz, Bolivia",
+    href: "https://maps.app.goo.gl/zobsSHcHh5CZZgZFA?g_st=ic",
+  },
+  {
+    name: "Semilla - Punto de venta 2",
+    address: "Avenida principal, zona central",
+    href: "https://maps.google.com/?q=La+Paz,Bolivia",
+  },
+  {
+    name: "Semilla - Punto de venta 3",
+    address: "Sucursal temporal / feria",
+    href: "https://maps.google.com/?q=La+Paz,Bolivia",
+  },
+];
+
 type GroupedLinks = Record<LinkCategory, LinkItem[]>;
 
 export default function LinksPage() {
   const { profile, links } = CONFIG;
+  const [isUbicacionesOpen, setIsUbicacionesOpen] = useState(false);
 
   const grouped = CATEGORIES.reduce<GroupedLinks>(
     (acc, cat) => {
@@ -283,6 +313,7 @@ export default function LinksPage() {
               key={cat}
               category={cat}
               links={grouped[cat]}
+              onActivateLocation={() => setIsUbicacionesOpen(true)}
             />
           ))}
         </div>
@@ -293,6 +324,12 @@ export default function LinksPage() {
             Hecho con 🍪❤️🍪 · {new Date().getFullYear()}
           </p>
         </footer>
+
+        <UbicacionesModal
+          isOpen={isUbicacionesOpen}
+          onClose={() => setIsUbicacionesOpen(false)}
+          locations={UBICACIONES}
+        />
       </main>
     </div>
   );
